@@ -1,0 +1,38 @@
+% paranums (c) Autumn R (aka., chorl)
+% ---
+% paranums is lisenced under GPLv3 [https://www.gnu.org/licenses/gpl-3.0.html].
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{paranums}[2023/07/04 Paragraph numbering]
+
+% Hard requirements
+\RequirePackage{zref-user}
+
+% Options
+\newif\if@hyperref\@hyperreffalse
+\DeclareOption{hyperref}{\@hyperreftrue}
+
+\ProcessOptions\relax
+
+% Zref prop setup
+\newcounter{para}
+\zref@newprop{paraprop}{\thepara}
+
+% \p incrememnts and displays the paragraph number
+\newcommand\p{\refstepcounter{para}\thepara.\space}
+
+% \plabel serves as a replacement for \label - soley for labelling paragraphs
+\newcommand\plabel[1]{\zref@labelbyprops{#1}{paraprop}\label{zref:para:#1}}
+
+% \pref serves as a replacment for \ref - soley for referencing paragraphs
+\if@hyperref
+    \RequirePackage{hyperref}
+    \newcommand\pref[1]{\hyperref[zref:para:#1]{\zref[paraprop]{#1}}}
+\else
+    \newcommand\pref[1]{\zref[paraprop]{#1}}
+\fi
+
+% paranums environment numbers every paragraph
+\newenvironment{paranums}{\everypar{\p}}{\endgraf}
+
+\endinput

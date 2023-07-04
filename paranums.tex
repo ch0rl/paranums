@@ -1,0 +1,64 @@
+\documentclass{article}
+
+\PassOptionsToPackage{colorlinks}{hyperref}
+\usepackage[hyperref]{paranums}
+
+\usepackage[outputdir=.out]{minted}
+
+\title{The \texttt{paranums} Package}
+\author{Autumn R.}
+\date{
+    v0.1.0 \\\vspace{3pt}
+    \today{}
+}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+
+    \section{Introduction}
+        \texttt{paranums} is a package that provides simple numbering of paragraphs in \LaTeX.
+
+    \section{Change List}
+        \begin{itemize}
+            \item[v0.1.0] Added \texttt{hyperref} option.
+            \item[v0.0.1] \texttt{paranums} is born!
+        \end{itemize}
+
+    \section{Requirements}
+        \begin{itemize}
+            \item \texttt{zref}
+            \item \texttt{hyperref} (if \texttt{hyperref} option is passed)
+        \end{itemize}
+
+    \section{Example}
+        \begin{paranums}
+            This is a paragraph!
+            This is text on the next line. \\
+            This is text \textbf{on} the next line.
+
+            This paragraph is separated by a blank line. \plabel{label} \par
+            This paragraph is preceded by \verb|\par|.
+
+            Here is a reference to a prior paragraph: \pref{label}.
+        \end{paranums}
+
+        \vspace{10pt}
+
+        \begin{minted}{latex}
+\begin{paranums}
+    This is a paragraph!
+    This is text on the next line. \\
+    This is text \textbf{on} the next line.
+
+    This paragraph is separated by a blank line. \par
+    This paragraph is preceded by \verb|\par|.
+
+    Here is a reference to a prior paragraph: \pref{label}.
+\end{paranums}
+        \end{minted}
+
+    \section{Source}
+        \inputminted{latex}{paranums.sty}
+\end{document}
